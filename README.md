@@ -1,2 +1,2 @@
-# expense-tracker
+# ledger
 My personal expense tracker app
