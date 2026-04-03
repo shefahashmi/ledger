@@ -20,17 +20,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .layout{display:flex;min-height:100vh}
 .sidebar{display:none}
 .main{flex:1;display:flex;flex-direction:column;min-width:0}
+/* Mobile: show top header + bottom nav, hide sidebar */
+.mobile-header{display:block}
+.bottom-nav{display:flex}
+.main{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
+.content-area{padding:14px}
+.ov-grid,.ov-col{display:flex;flex-direction:column;gap:14px}
+/* Desktop: show sidebar only, hide mobile nav elements */
 @media(min-width:900px){
   .sidebar{display:flex;flex-direction:column;width:var(--sidebar-w);min-height:100vh;background:var(--s1);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0}
-  .bottom-nav{display:none}.main{padding-bottom:0}
-  .content-area{padding:28px 32px;max-width:980px}.screen{padding:0}
+  .mobile-header{display:none}
+  .bottom-nav{display:none}
+  .main{padding-bottom:0}
+  .content-area{padding:28px 32px;max-width:980px}
+  .screen{padding:0}
   .ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-  .ov-col{display:flex;flex-direction:column;gap:20px}.mobile-header{display:none}
-}
-@media(max-width:899px){
-  .main{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
-  .content-area{padding:14px}
-  .ov-grid,.ov-col{display:flex;flex-direction:column;gap:14px}
+  .ov-col{display:flex;flex-direction:column;gap:20px}
 }
 .sb-brand{padding:22px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .sb-logo{font-size:17px;font-weight:700;color:var(--accent)}
@@ -55,7 +60,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .sb-footer{padding:14px 20px;border-top:1px solid var(--border)}
 .sb-add{width:100%;background:var(--accent);color:#000;border:none;border-radius:var(--r-sm);font-family:var(--sans);font-weight:700;font-size:14px;padding:12px;cursor:pointer;transition:opacity var(--ease)}
 .sb-add:hover{opacity:.88}
-.mobile-header{display:block;background:var(--s1);border-bottom:1px solid var(--border);padding:14px 14px 0;position:sticky;top:0;z-index:50}
+.mobile-header{background:var(--s1);border-bottom:1px solid var(--border);padding:14px 14px 0;position:sticky;top:0;z-index:50}
 .mh-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .mh-left{display:flex;align-items:center;gap:8px}
 .mh-logo{font-size:15px;font-weight:700;color:var(--accent)}
@@ -67,7 +72,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .mh-tabs::-webkit-scrollbar{display:none}
 .mh-tab{flex-shrink:0;background:none;border:none;color:var(--text3);font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:9px 12px;cursor:pointer;border-bottom:2px solid transparent;transition:all var(--ease);white-space:nowrap}
 .mh-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,8,.97);border-top:1px solid var(--border);display:flex;padding:7px 0 max(7px,env(safe-area-inset-bottom));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:100}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,8,.97);border-top:1px solid var(--border);padding:7px 0 max(7px,env(safe-area-inset-bottom));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:100}
 [data-theme="light"] .bottom-nav{background:rgba(255,255,255,.95)}
 .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;transition:color var(--ease)}
 .bn-item.active{color:var(--accent)}
@@ -252,9 +257,11 @@ select.finput{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xml
   <nav class="sb-nav">
     <button class="sb-item active" data-screen="overview"><span class="sb-item-icon">📊</span><span class="sb-item-lbl">Overview</span></button>
     <button class="sb-item" data-screen="log"><span class="sb-item-icon">📋</span><span class="sb-item-lbl">Expense Log</span></button>
+    <button class="sb-item" data-screen="search"><span class="sb-item-icon">🔍</span><span class="sb-item-lbl">Search</span></button>
     <button class="sb-item" data-screen="months"><span class="sb-item-icon">📅</span><span class="sb-item-lbl">All Months</span></button>
     <button class="sb-item" data-screen="budget"><span class="sb-item-icon">🎯</span><span class="sb-item-lbl">Budgets</span></button>
     <button class="sb-item" data-screen="import"><span class="sb-item-icon">💾</span><span class="sb-item-lbl">Import / Backup</span></button>
+    <button class="sb-item" data-screen="add"><span class="sb-item-icon">＋</span><span class="sb-item-lbl" style="color:var(--accent);font-weight:700">Add Expense</span></button>
   </nav>
   <div class="sb-footer"><button class="sb-add" id="sd-add">＋ Add Expense</button></div>
 </aside>
